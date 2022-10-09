@@ -1,3 +1,6 @@
+using KpiBackendProject.Interfaces;
+using KpiBackendProject.Models.Entities;
+using KpiBackendProject.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +13,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ICustomContext, CustomContext>();
+builder.Services.AddTransient<IRepository<User>, Repository<User>>();
+builder.Services.AddTransient<IRepository<Category>, Repository<Category>>();
+builder.Services.AddTransient<IRepository<Record>, Repository<Record>>();
 
 var app = builder.Build();
 
