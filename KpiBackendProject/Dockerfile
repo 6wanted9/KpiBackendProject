@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["KpiBackendProject.csproj", "KpiBackendProject.csproj"]
-RUN dotnet restore "KpiBackendProject.csproj"
+COPY ["KpiBackendProject/KpiBackendProject.csproj", "KpiBackendProject/"]
+RUN dotnet restore "KpiBackendProject/KpiBackendProject.csproj"
 COPY . .
-WORKDIR "/src"
+WORKDIR "/src/KpiBackendProject"
 RUN dotnet build "KpiBackendProject.csproj" -c Release -o /app/build
 
 FROM build AS publish

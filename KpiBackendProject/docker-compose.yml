@@ -1,0 +1,11 @@
+﻿version: '3.4'
+
+services:
+  kpi-backend-project:
+    image: 6wanted9/kpi-backend-project:lab1
+    ports:
+      - 7069:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.aspnet/https:/https:ro
