@@ -5,7 +5,7 @@ using KpiBackendProject.Models.Entities.Abstract;
 
 namespace KpiBackendProject.Services
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    internal class Repository<TEntity> : IRepository<TEntity>
         where TEntity : Entity, new()
     {
         private readonly ICustomContext _context;

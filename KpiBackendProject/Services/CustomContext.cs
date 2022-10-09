@@ -7,7 +7,7 @@ using KpiBackendProject.Models.Entities.Abstract;
 
 namespace KpiBackendProject.Services
 {
-    public class CustomContext : ICustomContext
+    internal class CustomContext : ICustomContext
     {
         private IEnumerable<User> Users { get; set; } = Enumerable.Empty<User>();
 

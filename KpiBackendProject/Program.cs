@@ -17,6 +17,8 @@ builder.Services.AddSingleton<ICustomContext, CustomContext>();
 builder.Services.AddTransient<IRepository<User>, Repository<User>>();
 builder.Services.AddTransient<IRepository<Category>, Repository<Category>>();
 builder.Services.AddTransient<IRepository<Record>, Repository<Record>>();
+builder.Services.AddTransient<IUserCreator, UserCreator>();
+builder.Services.AddTransient<ICategoryCreator, CategoryCreator>();
 
 var app = builder.Build();
 
