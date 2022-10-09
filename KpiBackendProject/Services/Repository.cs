@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using KpiBackendProject.Interfaces;
 using KpiBackendProject.Models.Entities.Abstract;
 
 namespace KpiBackendProject.Services
 {
     public class Repository<TEntity> : IRepository<TEntity>
-        where TEntity : Entity
+        where TEntity : Entity, new()
     {
         private readonly ICustomContext _context;
 
@@ -14,8 +15,7 @@ namespace KpiBackendProject.Services
             _context = context;
         }
 
-        public TEntity Add<TEntity>(TEntity entity)
-            where TEntity : Entity
+        public TEntity Add(TEntity entity)
         {
             SetId(entity);
             _context.Add(entity);
@@ -23,20 +23,12 @@ namespace KpiBackendProject.Services
             return entity;
         }
 
-        public void Remove<TEntity>(TEntity entity)
-            where TEntity : Entity
+        public IEnumerable<TEntity> GetAll()
         {
-            _context.Remove(entity);
+            return _context.GetAll<TEntity>();
         }
 
-        public void RemoveById<TEntity>(Guid entityId)
-            where TEntity : Entity, new()
-        {
-            _context.Remove(new TEntity{ Id = entityId });
-        }
-
-        private void SetId<TEntity>(TEntity entity)
-            where TEntity : Entity
+        private void SetId(TEntity entity)
         {
             entity.Id = Guid.NewGuid();
         }

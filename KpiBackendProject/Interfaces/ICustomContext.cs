@@ -1,4 +1,5 @@
-﻿using KpiBackendProject.Models.Entities.Abstract;
+﻿using System.Collections.Generic;
+using KpiBackendProject.Models.Entities.Abstract;
 
 namespace KpiBackendProject.Interfaces
 {
@@ -7,7 +8,7 @@ namespace KpiBackendProject.Interfaces
         void Add<TEntity>(TEntity entity)
             where TEntity : Entity;
 
-        void Remove<TEntity>(TEntity entity)
+        IEnumerable<TEntity> GetAll<TEntity>()
             where TEntity : Entity;
     }
 }

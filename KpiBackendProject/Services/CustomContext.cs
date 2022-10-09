@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KpiBackendProject.Interfaces;
 using KpiBackendProject.Models.Entities;
@@ -8,11 +9,11 @@ namespace KpiBackendProject.Services
 {
     public class CustomContext : ICustomContext
     {
-        private IEnumerable<User> Users { get; set; }
+        private IEnumerable<User> Users { get; set; } = Enumerable.Empty<User>();
 
-        private IEnumerable<Category> Categories { get; set; }
+        private IEnumerable<Category> Categories { get; set; } = Enumerable.Empty<Category>();
 
-        private IEnumerable<Record> Records { get; set; }
+        private IEnumerable<Record> Records { get; set; } = Enumerable.Empty<Record>();
 
         public void Add<TEntity>(TEntity entity)
             where TEntity : Entity
@@ -33,23 +34,15 @@ namespace KpiBackendProject.Services
             }
         }
 
-        public void Remove<TEntity>(TEntity entity)
+        public IEnumerable<TEntity> GetAll<TEntity>()
             where TEntity : Entity
         {
-            switch (entity)
+            return typeof(TEntity) switch
             {
-                case User user:
-                    Users = Users.Where(u => u.Id != user.Id);
-                    break;
-                case Category category:
-                    Categories = Categories.Where(c => c.Id != category.Id);
-                    break;
-                case Record record:
-                    Records = Records.Where(r => r.Id != record.Id);
-                    break;
-                default:
-                    return;
-            }
+                Type type when type == typeof(User) => Users as IEnumerable<TEntity>,
+                Type type when type == typeof(Category) => Categories as IEnumerable<TEntity>,
+                Type type when type == typeof(Record) => Records as IEnumerable<TEntity>,
+            };
         }
     }
 }

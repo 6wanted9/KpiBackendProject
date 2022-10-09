@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using KpiBackendProject.Models.Entities.Abstract;
 
 namespace KpiBackendProject.Interfaces
@@ -6,13 +6,8 @@ namespace KpiBackendProject.Interfaces
     public interface IRepository<TEntity>
         where TEntity : Entity
     {
-        TEntity Add<TEntity>(TEntity entity)
-            where TEntity : Entity;
+        TEntity Add(TEntity entity);
 
-        void Remove<TEntity>(TEntity entity)
-            where TEntity : Entity;
-
-        void RemoveById<TEntity>(Guid entityId)
-            where TEntity : Entity, new();
+        IEnumerable<TEntity> GetAll();
     }
 }
