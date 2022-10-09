@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using KpiBackendProject.Constants;
 using KpiBackendProject.Interfaces;
 using KpiBackendProject.Models;
+using KpiBackendProject.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KpiBackendProject.Controllers
@@ -10,10 +12,14 @@ namespace KpiBackendProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserCreator _userCreator;
+        private readonly IRepository<User> _usersRepository;
 
-        public UserController(IUserCreator userCreator)
+        public UserController(
+            IUserCreator userCreator,
+            IRepository<User> usersRepository)
         {
             _userCreator = userCreator;
+            _usersRepository = usersRepository;
         }
 
         [HttpPost]
@@ -21,6 +27,13 @@ namespace KpiBackendProject.Controllers
         public void Create([FromBody] NamedModel user)
         {
             _userCreator.Create(user);
+        }
+
+        [HttpGet]
+        [Route(Routes.User.GetAll)]
+        public IEnumerable<User> GetAll()
+        {
+            return _usersRepository.GetAll();
         }
     }
 }

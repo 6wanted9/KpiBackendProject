@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using KpiBackendProject.Constants;
 using KpiBackendProject.Interfaces;
 using KpiBackendProject.Models;
@@ -30,9 +31,9 @@ namespace KpiBackendProject.Controllers
 
         [HttpGet]
         [Route(Routes.Category.GetAll)]
-        public void GetAll()
+        public IEnumerable<Category> GetAll()
         {
-            _categoriesRepository.GetAll();
+            return _categoriesRepository.GetAll();
         }
     }
 }

@@ -19,6 +19,9 @@ builder.Services.AddTransient<IRepository<Category>, Repository<Category>>();
 builder.Services.AddTransient<IRepository<Record>, Repository<Record>>();
 builder.Services.AddTransient<IUserCreator, UserCreator>();
 builder.Services.AddTransient<ICategoryCreator, CategoryCreator>();
+builder.Services.AddTransient<IRecordCreator, RecordCreator>();
+builder.Services.AddTransient<IRecordCreationValidator, RecordCreationValidator>();
+builder.Services.AddTransient<IRecordsRetriever, RecordsRetriever>();
 
 var app = builder.Build();
 
